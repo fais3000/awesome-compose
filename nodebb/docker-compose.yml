@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+  nodebb:
+    image: nodebb/docker:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "4567:4567"
+  db:
+    image: mongo:bionic
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    volumes:
+      - mongo:/data/db
+
+volumes:
+  mongo:
